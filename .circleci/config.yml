@@ -16,8 +16,8 @@ jobs:
     - run: |
         npm install && \
         echo $DOCKER_PASSWORD | docker login -u="$DOCKER_USERNAME" --password-stdin quay.io && \
-        docker build -t internetofsteve/kubey-api:${CIRCLE_SHA1} && \
-        docker build -t internetofsteve/kubey-api:latest && \
+        docker build -t internetofsteve/kubey-api:${CIRCLE_SHA1} . && \
+        docker build -t internetofsteve/kubey-api:latest . && \
         docker push internetofsteve/kubey-api:${CIRCLE_SHA1} && \
         docker push internetofsteve/kubey-api:latest
     - persist_to_workspace:
