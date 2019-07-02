@@ -4,7 +4,8 @@
   "description": "Simple API to demo Kubers",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js"
+    "start": "node index.js",
+    "build": "node ./scripts/cleanAndBuild.js"
   },
   "repository": {
     "type": "git",
