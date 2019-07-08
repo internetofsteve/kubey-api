@@ -38,7 +38,7 @@ jobs:
         ./kubectl --kubeconfig /dev/null \
         --server $KUBE_SERVER \
         --certificate-authority ca.crt \
-        --token $(cat $KUBE_TOKEN | base64 --decode) \
+        --token $(echo $KUBE_TOKEN | base64 --decode) \
         apply -f kube.yml && \
          ./kubectl --kubeconfig /dev/null \
         --server $KUBE_SERVER \
