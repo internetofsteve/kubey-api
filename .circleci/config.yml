@@ -33,7 +33,7 @@ jobs:
     - run: |
         curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl && \
         chmod +x kubectl && \
-        cat $KUBE_CERT | base64 --decode > ca.crt && \
+        echo $KUBE_CERT | base64 --decode > ca.crt && \
         sed -i -e 's/$IMAGE_VERSION/'${CIRCLE_SHA1}'/g' kube.yml && \
         ./kubectl --kubeconfig /dev/null \
         --server $KUBE_SERVER \
