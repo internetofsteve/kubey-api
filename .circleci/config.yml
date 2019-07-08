@@ -31,8 +31,20 @@ jobs:
     - attach_workspace:
         at: ~/code
     - run: |
-        echo "Running kube deploy"
-
+        curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl && \
+        chmod +x kubectl && \
+        cat $KUBE_CERT | base64 --decode > ca.crt && \
+        sed -i -e 's/$IMAGE_VERSION/'${CIRCLE_SHA1}'/g' kube.yml && \
+        ./kubectl --kubeconfig /dev/null \
+        --server $KUBE_SERVER \
+        --certificate-authority ca.crt \
+        --token $(cat $KUBE_TOKEN | base64 --decode) \
+        apply -f kube.yml && \
+         ./kubectl --kubeconfig /dev/null \
+        --server $KUBE_SERVER \
+        --certificate-authority ca.crt \
+        --token $(cat $KUBE_TOKEN | base64 --decode) \
+        rollout status deployment/kubey-api
   deploy-to-prod:
     executor: default
     steps:
