@@ -64,7 +64,7 @@ workflows:
             only:
             - master
     - deploy-to-staging:
-        #context: staging
+        context: kubey-staging
         requires:
         - build
     - deploy-to-prod-approval:
@@ -72,6 +72,6 @@ workflows:
         requires:
         - deploy-to-staging
     - deploy-to-prod:
-        #context: prod
+        context: kubey-prod
         requires:
         - deploy-to-prod-approval
